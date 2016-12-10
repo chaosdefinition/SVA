@@ -12,6 +12,8 @@ static uint32_t vm_entry_ctls = 0;
 /* VMXON region for each logical processor */
 static struct sva_vmcs vmxon_region[numProcessors] = { 0 };
 
+static int vmxon_done[numProcessors] = { 0 };
+
 /*
  * Function: cpuid()
  *
@@ -279,6 +281,11 @@ int sva_vmxon(int proc_id)
 		return -1;
 	}
 
+	/* Check double-enter */
+	if (vmxon_done[proc_id]) {
+		return -1;
+	}
+
 	/* Enable VMX */
 	if (enable_vmx() < 0) {
 		return -1;
@@ -292,18 +299,33 @@ int sva_vmxon(int proc_id)
 	if (vmxon(&vmxon_region[proc_id]) != 0) {
 		return -1;
 	}
+	vmxon_done[proc_id] = 1;
 	return 0;
 }
 
 /*
  * Intrinsic: sva_vmxoff()
  *
+ * Inputs:
+ *  - proc_id: the ID of a processor
+ *
  * Description:
  *  This intrinsic leaves VMX root operation and disables VMX for the current
  *  logical processors.
  */
-void sva_vmxoff(void)
+void sva_vmxoff(int proc_id)
 {
-	vmxoff();
+	/* Check validity of proc_id */
+	if (proc_id < 0 || proc_id >= numProcessors) {
+		return;
+	}
+
+	/* Leave VMX root operation */
+	if (vmxon_done[proc_id]) {
+		vmxoff();
+		vmxon_done[proc_id] = 0;
+	}
+
+	/* Disable VMX */
 	disable_vmx();
 }

@@ -225,6 +225,6 @@ static inline void vmxoff(void)
 
 /* SVA VMX Intrinsics */
 extern int sva_vmxon(int proc_id);
-extern void sva_vmxoff(void);
+extern void sva_vmxoff(int proc_id);
 
 #endif /* _SVA_VMX_H */
