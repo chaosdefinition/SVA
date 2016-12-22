@@ -4,7 +4,7 @@
 #include <sys/cdefs.h>
 #include <sys/types.h>
 
-static inline uint64_t rdmsr(unsigned int msr)
+static inline uint64_t _rdmsr(unsigned int msr)
 {
 	uint32_t low, high;
 

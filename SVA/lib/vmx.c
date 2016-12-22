@@ -91,7 +91,7 @@ static inline void disable_vmx(void)
 static inline uint32_t get_vmx_revision(void)
 {
 	/* IA32_VMX_BASIC[bit 30 - 0] */
-	return rdmsr(MSR_IA32_VMX_BASIC) & 0x7fffffff;
+	return _rdmsr(MSR_IA32_VMX_BASIC) & 0x7fffffff;
 }
 
 /*

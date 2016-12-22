@@ -61,7 +61,7 @@ struct sva_vmcs {
 	uint32_t revision;
 	uint32_t abort_code;
 	uint8_t data[PAGE_SIZE - 8];
-};
+} __attribute__((aligned(PAGE_SIZE)));
 
 /* Inline assembly code for VMX error checking */
 #define VMX_CHECK_ERROR							\
