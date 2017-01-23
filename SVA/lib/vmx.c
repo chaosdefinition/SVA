@@ -23,7 +23,7 @@ static int vmxon_done[numProcessors] = { 0 };
  *  - pedx: the address to hold the return value of EDX
  */
 static inline void cpuid(uint32_t eax, uint32_t * peax, uint32_t * pebx,
-		  uint32_t * pecx, uint32_t * pedx)
+			 uint32_t * pecx, uint32_t * pedx)
 {
 	uint32_t ebx = 0, ecx = 0, edx = 0;
 
@@ -45,12 +45,12 @@ static inline void cpuid(uint32_t eax, uint32_t * peax, uint32_t * pebx,
 }
 
 /*
- * Function: vmx_supported
+ * Function: vmx_supported()
  *
  * Description:
  *  Check if VMX is supported by the processor.
  *
- * Outputs:
+ * Return value:
  *  1 - if VMX is supported
  *  0 - otherwise
  */
@@ -67,7 +67,13 @@ static inline int vmx_supported(void)
 
 
 /*
- * TODO: Add description.
+ * Function: enable_vmx()
+ *
+ * Description:
+ *  Enable VMX operations.
+ *
+ * Return value:
+ *  0 - operation succeed
  */
 static inline int enable_vmx(void)
 {
@@ -77,7 +83,10 @@ static inline int enable_vmx(void)
 }
 
 /*
- * TODO: Add description.
+ * Function: disable_vmx()
+ *
+ * Description:
+ *  Disable VMX operations.
  */
 static inline void disable_vmx(void)
 {
@@ -86,7 +95,13 @@ static inline void disable_vmx(void)
 }
 
 /*
- * TODO: Add description.
+ * Function: get_vmx_revision()
+ *
+ * Description:
+ *  Get the VMX revision number.
+ *
+ * Return value:
+ *  the VMX revision number
  */
 static inline uint32_t get_vmx_revision(void)
 {
@@ -105,8 +120,8 @@ static inline uint32_t get_vmx_revision(void)
  *  - proc_id: the ID of a processor
  *
  * Return value:
- *  0 - operation succeeded.
- *  -1 - operation failed.
+ *  0 - operation succeeded
+ *  -1 - operation failed
  */
 int sva_vmxon(int proc_id)
 {

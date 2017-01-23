@@ -79,7 +79,18 @@ struct sva_vmcs {
  */
 
 /*
- * TODO: Add description.
+ * Function: vmxon()
+ *
+ * Description:
+ *  Execute the VMXON instruction.
+ *
+ * Inputs:
+ *  - region: a pointer to the VMXON region
+ *
+ * Return value:
+ *  0 - operation succeeded
+ *  1 - VM fail Invalid
+ *  2 - VM fail Valid
  */
 static inline int vmxon(struct sva_vmcs * region)
 {
@@ -98,7 +109,10 @@ static inline int vmxon(struct sva_vmcs * region)
 }
 
 /*
- * TODO: Add description.
+ * Function: vmxoff()
+ *
+ * Description:
+ *  Execute the VMXOFF instruction.
  */
 static inline void vmxoff(void)
 {
